@@ -33,3 +33,11 @@ variable "prefix" {
 variable "tags" {
   description = "tags for the deployment"
 }
+
+variable "diagnostics_map" {
+  description = "contains the data for diagnostics"
+}
+
+variable "log_analytics_workspace" {
+  description = "contains the log analaytics workspace for diagnostics"
+}
