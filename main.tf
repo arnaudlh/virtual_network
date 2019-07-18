@@ -6,7 +6,7 @@
 resource "azurerm_network_security_group" "nsg_obj" {
   count = "${length(var.virtual_network_subnet_list)}"
 
-  name                    = "${lookup(var.virtual_network_subnet_list[count.index], "name")}"
+  name                    = "${lookup(var.virtual_network_subnet_list[count.index], "name")}-nsg"
   location                = var.location
   resource_group_name     = var.virtual_network_rg
   tags                    = var.tags
