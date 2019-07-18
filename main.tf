@@ -24,17 +24,13 @@ resource "azurerm_virtual_network" "vnet" {
     for_each = [for s in var.virtual_network_subnet_list: {
         name           = s.name
         address_prefix = s.prefix
-        security_group = s.nsg_id
-        //TODO: NSG STITCHING IS NOT WORKING
-        //need to identify vnet to stitch the NSG 
-        //security_group = azurerm_network_security_group.nsg_obj.*.name[s.name]
     }
     ]
   
   content {
       name           = subnet.value.name
       address_prefix = subnet.value.address_prefix
-      security_group = subnet.value.security_group
+      security_group = element(azurerm_network_security_group.nsg_obj[*].id, subnet.key)
     }
   }
   tags = var.tags

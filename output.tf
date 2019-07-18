@@ -10,9 +10,6 @@ output "shared_services_vnet" {
 
 //Exports the NSG objects created
 output "nsg_vnet" {
-value = {
-    "nsg_name"    = azurerm_network_security_group.nsg_obj.*.name
-    "nsg_id"      = azurerm_network_security_group.nsg_obj.*.id
-}
+  value = zipmap(azurerm_network_security_group.nsg_obj.*.name, azurerm_network_security_group.nsg_obj.*.id)
 }
 

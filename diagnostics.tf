@@ -26,7 +26,7 @@
         }
   }  
 
-//chain the NSG diag objects
+//Creates the NSG diag objects
 resource "azurerm_monitor_diagnostic_setting" "nsg_diag" {
 count = "${length(azurerm_network_security_group.nsg_obj)}"
 
