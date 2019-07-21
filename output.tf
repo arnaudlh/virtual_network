@@ -8,6 +8,11 @@ output "vnet" {
   }
 }
 
+output "vnet_obj" {
+  value = azurerm_virtual_network.vnet
+}
+
+
 //Exports the NSG objects created
 output "nsg_vnet" {
   value = zipmap(azurerm_network_security_group.nsg_obj.*.name, azurerm_network_security_group.nsg_obj.*.id)

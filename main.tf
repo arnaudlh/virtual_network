@@ -12,6 +12,8 @@ resource "azurerm_network_security_group" "nsg_obj" {
   tags                    = var.tags
 }
 
+
+
 // Creates the networks 
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.prefix}${var.virtual_network_name}"
@@ -24,14 +26,17 @@ resource "azurerm_virtual_network" "vnet" {
     for_each = [for s in var.virtual_network_subnet_list: {
         name           = s.name
         address_prefix = s.prefix
+ //       security_group = var.name != "AzureFirewallSubnet" ? [element(azurerm_network_security_group.nsg_obj[*].id, subnet.key)] : []  
     }
     ]
   
   content {
       name           = subnet.value.name
       address_prefix = subnet.value.address_prefix
-      security_group = element(azurerm_network_security_group.nsg_obj[*].id, subnet.key)
+      security_group = subnet.value.name != "AzureFirewallSubnet" ? "${element(azurerm_network_security_group.nsg_obj[*].id, subnet.key)}" : ""  
+      }
+
           }
-          }
+      
   tags = var.tags
   }
