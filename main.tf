@@ -31,7 +31,7 @@ resource "azurerm_virtual_network" "vnet" {
       name           = subnet.value.name
       address_prefix = subnet.value.address_prefix
       security_group = element(azurerm_network_security_group.nsg_obj[*].id, subnet.key)
-    }
-  }
+          }
+          }
   tags = var.tags
   }

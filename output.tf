@@ -1,5 +1,5 @@
 //Exports main data for peering and security post-deployment touch
-output "shared_services_vnet" {
+output "vnet" {
   value = {
   "vnet_name"           = azurerm_virtual_network.vnet.name
   "vnet_adress_space"   = azurerm_virtual_network.vnet.address_space
