@@ -33,7 +33,6 @@ variable "networking_object" {
 #     region1 = {
 #         vnet = {
 #             name                = "sg-vnet-dmz"
-#             location            = "southeastasia"
 #             address_space       = ["10.101.4.0/22"]     # 10.100.4.0 - 10.100.7.255
 #             dns                 = ["192.168.0.16", "192.168.0.64"]
 #         }
