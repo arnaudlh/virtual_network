@@ -18,7 +18,8 @@ locals {
 resource "azurerm_subnet" "v_subnet" {
   count                   = length(local.vnet) 
 
-  name                    = "${var.prefix}${var.networking_object["region1"].subnets[element(local.vnet, count.index)].name}"
+  name                    = "${var.networking_object["region1"].subnets[element(local.vnet, count.index)].name}"
+  #not prefixing the subnets name is it can break some features: eg. Azure Firewall requiring specific name for subnet deployment.
   resource_group_name     = var.virtual_network_rg
   virtual_network_name    = azurerm_virtual_network.vnet.name
   address_prefix          = var.networking_object["region1"].subnets[element(local.vnet, count.index)].cidr

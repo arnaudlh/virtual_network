@@ -22,4 +22,4 @@ resource "azurerm_network_security_group" "nsg_obj" {
 # }
 
 #Need to catch if subnet is called AzureFirewallSubnet, then dont create the NSG or dont bind it (fails at binding time)
-#security_group = subnet.value.name != "AzureFirewallSubnet" ? "${element(azurerm_network_security_group.nsg_obj[*].id, subnet.key)}" : ""  
+#security_group = azurerm_subnet.v_subnet[count.index].name != "AzureFirewallSubnet" ? "${element(azurerm_network_security_group.nsg_obj[*].id, subnet.key)}" : ""  
