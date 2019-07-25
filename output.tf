@@ -13,10 +13,9 @@ output "vnet_obj" {
 }
 
 output "vnet_subnets" {
-  value = zipmap(azurerm_virtual_network.vnet.subnet.*.name, azurerm_virtual_network.vnet.subnet.*.id)
+  value = zipmap(azurerm_subnet.v_subnet.*.name, azurerm_subnet.v_subnet.*.id)
 }
 
-//Exports the NSG objects created
 output "nsg_vnet" {
   value = zipmap(azurerm_network_security_group.nsg_obj.*.name, azurerm_network_security_group.nsg_obj.*.id)
 }
