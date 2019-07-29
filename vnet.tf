@@ -7,22 +7,51 @@ resource "azurerm_virtual_network" "vnet" {
   address_space       = var.networking_object["region1"].vnet.address_space
   dns_servers         = var.networking_object["region1"].vnet.dns
   tags                = var.tags
-  }
-
-
-
-// Creates the vnet's virtual subnetworks
-locals {
-  vnet = keys(var.networking_object["region1"].subnets)
 }
-resource "azurerm_subnet" "v_subnet" {
-  count                   = length(local.vnet) 
 
-  name                    = "${var.networking_object["region1"].subnets[element(local.vnet, count.index)].name}"
-  #not prefixing the subnets name is it can break some features: eg. Azure Firewall requiring specific name for subnet deployment.
-  resource_group_name     = var.virtual_network_rg
-  virtual_network_name    = azurerm_virtual_network.vnet.name
-  address_prefix          = var.networking_object["region1"].subnets[element(local.vnet, count.index)].cidr
-  service_endpoints       = var.networking_object["region1"].subnets[element(local.vnet, count.index)].service_endpoints
+module "firewall_subnet_region1" {
+  source                = "./subnet"
+
+  resource_group        = var.virtual_network_rg
+  virtual_network_name  = azurerm_virtual_network.vnet.name
+  subnets               = map(
+                              "AzureFirewallSubnet", var.networking_object["region1"].subnets["AzureFirewallSubnet"]
+                            )
+  subnets_to_exclude  = [""]
+  tags                =var.tags
+  location            = var.location
 }
+
+module "subnets_region1" {
+  source                = "./subnet"
+
+  resource_group        = var.virtual_network_rg
+  virtual_network_name  = azurerm_virtual_network.vnet.name
+  subnets               = var.networking_object["region1"].subnets
+  subnets_to_exclude    = ["AzureFirewallSubnet"]
+  tags                  = var.tags
+  location              = var.location
+}
+
+module "nsg_region1" {
+  source                = "./nsg"
+
+  resource_group        = var.virtual_network_rg
+  virtual_network_name  = azurerm_virtual_network.vnet.name
+  subnets               = var.networking_object["region1"].subnets
+  subnets_to_exclude    = ["AzureFirewallSubnet"]
+  tags                  =var.tags
+  location              = var.location
+  log_analytics_workspace = var.log_analytics_workspace
+  diagnostics_map       = var.diagnostics_map
+  subnet_ids_map        = module.subnets_region1.subnet_ids_map
+}
+
+# module "nsg_attach" {
+#   source                = "./nsg_attach"
+
+#   nsg_list              = module.nsg_region1.nsgs
+#   vnet_list             = module.subnets_region1.v_subnets
+# }
+
 

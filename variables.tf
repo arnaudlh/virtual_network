@@ -27,36 +27,3 @@ variable "log_analytics_workspace" {
 variable "networking_object" {
   description = "object describing the networking configuration"
 }
-
-# Sample for networking_object
-#   networking_object = {
-#     region1 = {
-#         vnet = {
-#             name                = "sg-vnet-dmz"
-#             address_space       = ["10.101.4.0/22"]     # 10.100.4.0 - 10.100.7.255
-#             dns                 = ["192.168.0.16", "192.168.0.64"]
-#         }
-#         subnets = {
-#             subnet0                 = {
-#                 name                = "AzureFirewallSubnet"
-#                 cidr                = "10.101.4.0/25"
-#                 service_endpoints   = []
-#             }
-#             subnet1                 = {
-#                 name                = "Active_Directory"
-#                 cidr                = "10.101.4.128/27"
-#                 service_endpoints   = []
-#             }
-#             subnet2                 = {
-#                 name                = "SQL_Servers"
-#                 cidr                = "10.101.4.160/27"
-#                 service_endpoints   = []
-#             }
-#             subnet3                 = {
-#                 name                = "Network_Monitoring"
-#                 cidr                = "10.101.4.192/27"
-#                 service_endpoints   = []
-#             }
-#         }
-# }
-# }
