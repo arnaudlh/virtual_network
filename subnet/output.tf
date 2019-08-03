@@ -4,6 +4,6 @@ output "subnet_ids" {
 
 output "subnet_ids_map" {
   value = zipmap(
-      local.subnet_list, azurerm_subnet.v_subnet[*].id
+      azurerm_subnet.v_subnet[*].name, azurerm_subnet.v_subnet[*].id
   )
 }

@@ -24,3 +24,7 @@ output "vnet_obj" {
 output "subnet_ids_region1" {
   value = module.subnets_region1.subnet_ids
 }
+
+output "subnet_ids_map_region1" {
+  value = module.subnets_region1.subnet_ids_map
+}
