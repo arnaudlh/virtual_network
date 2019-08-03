@@ -12,7 +12,7 @@ log {
     
     category =  "NetworkSecurityGroupRuleCounter"
     retention_policy {
-      days   = "90"
+      days   = var.opslogs_retention_period
       enabled = true
 
     }
@@ -21,7 +21,7 @@ log {
     
     category =  "NetworkSecurityGroupEvent"
     retention_policy {
-      days   = "90"
+      days   = var.opslogs_retention_period
       enabled = true
 
     }

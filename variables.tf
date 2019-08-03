@@ -27,3 +27,8 @@ variable "log_analytics_workspace" {
 variable "networking_object" {
   description = "object describing the networking configuration"
 }
+
+variable "opslogs_retention_period" {
+  description = "Number of days to keep operations logs inside storage account"
+  default = 60
+}

@@ -6,13 +6,13 @@ variable "resource_group" {
 variable "virtual_network_name" {
 }
 
-variable "subnets_to_exclude" {
+# variable "subnets_to_exclude" {
   
-}
+# }
 
-variable "subnet_ids_map" {
-  type = map
-}
+# variable "subnet_ids_map" {
+#   type = map
+# }
 
 variable "subnets" {
   
@@ -36,5 +36,10 @@ variable "log_analytics_workspace" {
 
 variable "link_nsg_to_subnet" {
   default = true
+}
+
+variable "opslogs_retention_period" {
+  description = "Number of days to keep operations logs inside storage account"
+  default = 60
 }
 
