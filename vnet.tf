@@ -1,4 +1,4 @@
-// Creates the networks virtual network
+// Creates the networks virtual network, the subnets and associated NSG, with a special section for AzureFirewallSubnet
 
 resource "azurerm_virtual_network" "vnet" {
   name                  = "${var.prefix}${var.networking_object["region1"].vnet.name}"
@@ -9,15 +9,12 @@ resource "azurerm_virtual_network" "vnet" {
   tags                  = var.tags
 }
 
-module "firewall_subnet_region1" {
+module "special_subnets_region1" {
   source                = "./subnet"
 
   resource_group        = var.virtual_network_rg
   virtual_network_name  = azurerm_virtual_network.vnet.name
-  subnets               = map(
-                              "AzureFirewallSubnet", var.networking_object["region1"].subnets["AzureFirewallSubnet"]
-                            )
-  subnets_to_exclude  = [""]
+  subnets               = var.networking_object["region1"].specialsubnets
   tags                  = var.tags
   location              = var.location
 }
@@ -28,7 +25,6 @@ module "subnets_region1" {
   resource_group        = var.virtual_network_rg
   virtual_network_name  = azurerm_virtual_network.vnet.name
   subnets               = var.networking_object["region1"].subnets
-  subnets_to_exclude    = ["AzureFirewallSubnet"]
   tags                  = var.tags
   location              = var.location
 }
@@ -38,7 +34,7 @@ module "nsg_region1" {
 
   resource_group            = var.virtual_network_rg
   virtual_network_name      = azurerm_virtual_network.vnet.name
-  subnets                   = module.subnets_region1.subnet_ids_map
+  subnets                   = var.networking_object["region1"].subnets
   tags                      = var.tags
   location                  = var.location
   log_analytics_workspace   = var.log_analytics_workspace

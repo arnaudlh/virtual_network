@@ -1,7 +1,6 @@
-# resource "azurerm_subnet_network_security_group_association" "nsg_vnet_association_region1" {
-#   depends_on                = [module.subnets_region1.subnet_ids_map, module.nsg_region1.nsg_obj]
-#   for_each                  = module.subnets_region1.subnet_ids_map
+resource "azurerm_subnet_network_security_group_association" "nsg_vnet_association_region1" {
+  for_each                  = var.networking_object["region1"].subnets
 
-#   subnet_id                 = each.value
-#   network_security_group_id = element(tolist(module.nsg_region1.nsg_obj[*]), index(module.nsg_region1.nsg_obj[*].name, each.key)).id
-# }
+  subnet_id                 = module.subnets_region1.subnet_ids_map[each.key].id
+  network_security_group_id = module.nsg_region1.nsg_obj[each.key].id
+}

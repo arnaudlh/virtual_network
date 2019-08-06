@@ -1,9 +1,9 @@
 output "subnet_ids" {
-  value = azurerm_subnet.v_subnet[*].id
+  value = azurerm_subnet.v_subnet
 }
 
 output "subnet_ids_map" {
-  value = zipmap(
-      azurerm_subnet.v_subnet[*].name, azurerm_subnet.v_subnet[*].id
-  )
+
+  depends_on = [azurerm_network_security_group.nsg_obj,azurerm_subnet.v_subnet ]
+  value = azurerm_subnet.v_subnet
 }

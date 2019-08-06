@@ -6,9 +6,6 @@ variable "resource_group" {
 variable "virtual_network_name" {
 }
 
-variable "subnets_to_exclude" {
-  
-}
 
 variable "subnets" {
   type = map
