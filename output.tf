@@ -20,10 +20,12 @@ output "nsg_obj" {
 }
 
 output "vnet_subnets" {
-  value = {
+  value = merge( {
     for subnet in module.subnets_region1.subnet_ids_map:
     subnet.name => subnet.id
-  }
+                },
+    {for subnet in module.special_subnets_region1.subnet_ids_map:
+    subnet.name => subnet.id})
 }
 
 output "nsg_vnet" {
