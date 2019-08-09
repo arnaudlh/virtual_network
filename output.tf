@@ -12,13 +12,24 @@ output "vnet_obj" {
   value = azurerm_virtual_network.vnet
 }
 
-output "subnet_ids_region1" {
-  value = module.subnets_region1.subnet_ids
-}
-
 output "subnet_ids_map_region1" {
   value = module.subnets_region1.subnet_ids_map
 }
 output "nsg_obj" {
   value = module.nsg_region1.nsg_obj
 }
+
+output "vnet_subnets" {
+  value = {
+    for subnet in module.subnets_region1.subnet_ids_map:
+    subnet.name => subnet.id
+  }
+}
+
+output "nsg_vnet" {
+  value = {
+    for nsg in module.nsg_region1.nsg_obj:
+    nsg.name => nsg.id
+  }
+}
+

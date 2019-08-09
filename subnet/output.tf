@@ -1,6 +1,3 @@
-output "subnet_ids" {
-  value = azurerm_subnet.v_subnet
-}
 
 output "subnet_ids_map" {
 
