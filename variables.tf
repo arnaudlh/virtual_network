@@ -19,11 +19,11 @@ variable "tags" {
 }
 
 variable "diagnostics_map" {
-  description = "contains the data for diagnostics"
+  description = "contains the sa and eh details for operations diagnostics"
 }
 
 variable "log_analytics_workspace" {
-  description = "contains the log analaytics workspace for diagnostics"
+  description = "contains the log analytics workspace details for operations diagnostics"
 }
 
 variable "opslogs_retention_period" {

@@ -4,34 +4,27 @@ variable "resource_group" {
   type        = string
 }
 variable "virtual_network_name" {
+  description = "name of the parent virtual network"
 }
 
-# variable "subnets_to_exclude" {
-  
-# }
-
-# variable "subnet_ids_map" {
-#   type = map
-# }
-
 variable "subnets" {
-  
+  description = "map structure for the subnets to be created"
 }
 
 variable "tags" {
-  
+  description = "tags of the resource"
 }
 
 variable "location" {
-  
+  description = "location of the resource"
 }
 
 variable "diagnostics_map" {
-  
+  description = "contains the sa and eh details for operations diagnostics"
 }
 
 variable "log_analytics_workspace" {
-  
+  description = "contains the log analytics workspace details for operations diagnostics"
 }
 
 variable "link_nsg_to_subnet" {
