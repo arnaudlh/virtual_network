@@ -12,11 +12,26 @@ output "vnet_obj" {
   value = azurerm_virtual_network.vnet
 }
 
+output "subnet_ids_map_region1" {
+  value = module.subnets_region1.subnet_ids_map
+}
+output "nsg_obj" {
+  value = module.nsg_region1.nsg_obj
+}
+
 output "vnet_subnets" {
-  value = zipmap(azurerm_subnet.v_subnet.*.name, azurerm_subnet.v_subnet.*.id)
+  value = merge( {
+    for subnet in module.subnets_region1.subnet_ids_map:
+    subnet.name => subnet.id
+                },
+    {for subnet in module.special_subnets_region1.subnet_ids_map:
+    subnet.name => subnet.id})
 }
 
 output "nsg_vnet" {
-  value = zipmap(azurerm_network_security_group.nsg_obj.*.name, azurerm_network_security_group.nsg_obj.*.id)
+  value = {
+    for nsg in module.nsg_region1.nsg_obj:
+    nsg.name => nsg.id
+  }
 }
 
