@@ -15,6 +15,7 @@ output "vnet_obj" {
 output "subnet_ids_map_region1" {
   value = module.subnets_region1.subnet_ids_map
 }
+
 output "nsg_obj" {
   value = module.nsg_region1.nsg_obj
 }
