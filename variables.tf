@@ -1,6 +1,6 @@
 
 variable "virtual_network_rg" {
-  description = "(Required) Map of the resource groups to create"
+  description = "(Required) Name of the resource group where to create the vnet"
   type        = string
 }
 
@@ -15,24 +15,24 @@ variable "prefix" {
 }
 
 variable "tags" {
-  description = "tags for the deployment"
+  description = "(Required) map of tags for the deployment"
 }
 
 variable "diagnostics_map" {
-  description = "contains the sa and eh details for operations diagnostics"
+  description = "(Required) contains the SA and EH details for operations diagnostics"
 }
 
 variable "log_analytics_workspace" {
-  description = "contains the log analytics workspace details for operations diagnostics"
+  description = "(Required) contains the log analytics workspace details for operations diagnostics"
 }
 
 variable "opslogs_retention_period" {
-  description = "Number of days to keep operations logs inside storage account"
+  description = "(Optional) Number of days to keep operations logs inside storage account"
   default = 60
 }
 
 variable "networking_object" {
-  description = "object describing the networking configuration, as described below"
+  description = "(Required) configuration object describing the networking configuration, as described below"
 }
 
 # Sample of network configuration object below
