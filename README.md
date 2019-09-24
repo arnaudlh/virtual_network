@@ -11,7 +11,7 @@ Creates a virtual network with:
 
 
 Reference the module to a specific version (recommended):
-```
+```hcl
 module "virtual_network" {
     source                  = "git://github.com/aztfmod/virtual_network.git?ref=v1.1"
   
@@ -26,7 +26,7 @@ module "virtual_network" {
 ```
 
 Or get the latest version
-```
+```hcl
 module "virtual_network" {
     source                  = "git://github.com/aztfmod/virtual_network.git?ref=latest"
   
@@ -44,7 +44,7 @@ module "virtual_network" {
 
 ## virtual_network_rg
 Required) Name of the resource group where to create the vnet
-```
+```hcl
 variable "virtual_network_rg" {
   description = "(Required) Name of the resource group where to create the vnet"
   type        = string
@@ -52,13 +52,13 @@ variable "virtual_network_rg" {
 
 ```
 Example
-```
+```hcl
 virtual_network_rg = "my-vnet"
 ```
 
 ## location
 (Required) Define the region where the resource groups will be created
-```
+```hcl
 
 variable "location" {
   description = "(Required) Define the region where the resource groups will be created"
@@ -72,13 +72,13 @@ Example
 
 ## prefix
 (Optional) You can use a prefix to add to the list of resource groups you want to create
-```
+```hcl
 variable "prefix" {
     description = "(Optional) You can use a prefix to add to the list of resource groups you want to create"
 }
 ```
 Example
-```
+```hcl
 locals {
     prefix = "${random_string.prefix.result}-"
 }
@@ -92,13 +92,13 @@ resource "random_string" "prefix" {
 
 ## tags
 (Required) Map of tags for the deployment
-```
+```hcl
 variable "tags" {
   description = "(Required) map of tags for the deployment"
 }
 ```
 Example
-```
+```hcl
 tags = {
     environment     = "DEV"
     owner           = "Arnaud"
@@ -108,13 +108,13 @@ tags = {
 
 ## diagnostics_map
 (Required) Contains the Storage Account and Event Hubs details for operations diagnostics
-```
+```hcl
 variable "diagnostics_map" {
   description = "(Required) contains the SA and EH details for operations diagnostics"
 }
 ```
 Example
-```
+```hcl
  diagnostics_map = {
       diags_sa      = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/operations-rg/providers/Microsoft.Storage/storageAccounts/opslogs"
       eh_id         = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/operations-rg/providers/Microsoft.EventHub/namespaces/opslogs"
@@ -124,13 +124,13 @@ Example
 ## log_analytics_workspace
 (Required) contains the log analytics workspace details for operations diagnostics."
 
-```
+```hcl
 variable "log_analytics_workspace" {
   description = "(Required) contains the log analytics workspace details for operations diagnostics"
 }
 ```
 Example
-```
+```hcl
   log_analytics_workspace = {
         id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourcegroups/operations-rg/providers/microsoft.operationalinsights/workspaces/lalogs"
         name = "lalogs"
@@ -140,14 +140,14 @@ Example
 ## opslogs_retention_period
 (Optional) Number of days to keep operations logs inside storage account"
 
-```
+```hcl
 variable "opslogs_retention_period" {
   description = "(Optional) Number of days to keep operations logs inside storage account"
   default = 60
 }
 ```
 Example
-```
+```hcl
 opslogs_retention_period = 90
 
 ```
@@ -155,16 +155,15 @@ opslogs_retention_period = 90
 ## networking_object
 (Required) Configuration object describing the networking configuration, as described below"
 
-```
+```hcl
 variable "networking_object" {
   description = "(Required) configuration object describing the networking configuration, as described below"
 }
 ```
 Example
-```
+```hcl
 Sample of network configuration object below
   networking_object = {
-    region1 = {
         vnet = {
             name                = "sg1-vnet-dmz"
             address_space       = ["10.101.4.0/22"]     # 10.100.4.0 - 10.100.7.255
@@ -209,7 +208,6 @@ Sample of network configuration object below
                 nsg_outbound        = []
             }
         }
-}
 }
 
 ```
